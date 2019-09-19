@@ -1,4 +1,4 @@
-#This is exercise part 1 
+# This is exercise part 1 
 
 - Basic Auth: there are 2 users defined in file security-beans.xml. Only user admin/admin is authorized cal the API
 
@@ -17,8 +17,8 @@ API implementation flow will throw customized exception and handled there
 - global properties: All secured properties defined in secure-config.local.yaml. Gloabl config(non secured) are defined in global-config.local.yaml.
 global env/key are defined and set default env=local
 
-- log4j: customized log categories with 2 log files. One for API invocation and will record each HTTP request/response. See files under logs/account-api-tx.log
-Also there is audit log to record who is making the API request. See file under logs/account-api-audit.log
+- log4j: customized log categories with 2 log files. One for API invocation which will record each HTTP request/response. See files under logs/account-api-tx.log
+The other one is audit log to record who is making the API request. See file under logs/account-api-audit.log
 
 
 
