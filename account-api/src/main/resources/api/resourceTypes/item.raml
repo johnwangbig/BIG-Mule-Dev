@@ -1,0 +1,72 @@
+#%RAML 1.0 ResourceType
+description: Provide <<resourcePathName | !singularize | !uppercamelcase>> Item retrieve/update/patch/delete
+get?:
+    description: Get specified <<resourcePathName | !singularize>> by ID
+    displayName: Get <<resourcePathName | !singularize>>
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<resourcePathName | !singularize | !uppercamelcase >>Type
+            example: <<getItemExample>>
+      404:
+        body: 
+          application/json:
+            type: <<clientErrorType>>
+      501:
+        body:
+          application/json:
+            type: <<serverErrorType>>
+put?:
+  description: Replace specified <<resourcePathName | !singularize>> by ID
+  displayName: replace <<resourcePathName | !singularize>>
+  body:
+        application/json:
+          type: <<resourcePathName | !singularize | !uppercamelcase>>UpdateType
+          example: <<putRequestExample>>
+  responses:
+    200:
+    201:
+      headers:
+        Location:
+          type: string
+          example:
+            <<resourcePathName | !singularize>>/1234
+    400:
+      body: 
+        application/json:
+          type: <<clientErrorType>>
+    501:
+      body:
+        application/json:
+          type: <<serverErrorType>>
+patch?:
+  description: Modifiy specified <<resourcePathName | !singularize>> by ID
+  displayName: modify <<resourcePathName | !singularize>> 
+  body:
+    application/json:
+      type: <<resourcePathName | !singularize | !uppercamelcase>>PatchType
+      example: <<patchRequestExample>>
+  responses:
+    204:
+    400:
+      body: 
+        application/json:
+          type: <<clientErrorType>>
+    501:
+      body:
+        application/json:
+          type: <<serverErrorType>>
+delete?:
+  description: Delete specified <<resourcePathName | !singularize>> by ID
+  displayName: delete <<resourcePathName | !singularize>> 
+  responses:
+    204:
+    400:
+      body: 
+        application/json:
+          type: <<clientErrorType>>
+    501:
+      body:
+        application/json:
+          type: <<serverErrorType>>

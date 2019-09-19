@@ -1,0 +1,46 @@
+  {
+    "success": false,
+    "Id": null,
+    "errors": [
+      {
+        "duplicateResult": {
+          "errorMessage": "Use one of these records?",
+          "allowSave": true,
+          "duplicateRuleEntityType": "Account",
+          "duplicateRule": "Standard_Account_Duplicate_Rule",
+          "matchResults": [
+            {
+              "entityType": "Account",
+              "matchEngine": "FuzzyMatchEngine",
+              "rule": "Standard_Account_Match_Rule_v1_0",
+              "size": 1,
+              "success": true,
+              "errors": [
+                
+              ],
+              "matchRecords": [
+                {
+                  "matchConfidence": 100.0,
+                  "additionalInformation": [
+                    
+                  ],
+                  "fieldDiffs": [
+                    
+                  ],
+                  "record": {
+                    "Id": "0013i0000075KilAAE",
+                    "type": "Account"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "message": "Use one of these records?",
+        "fields": [
+          
+        ],
+        "statusCode": "DUPLICATES_DETECTED"
+      }
+    ]
+  }

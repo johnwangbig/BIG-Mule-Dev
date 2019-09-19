@@ -1,0 +1,234 @@
+INFO  2019-09-17 09:57:20,176 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6IAAS ==> true
+INFO  2019-09-17 09:57:20,188 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6FAAS ==> true
+INFO  2019-09-17 09:57:20,197 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6EAAS ==> true
+INFO  2019-09-17 09:57:20,206 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6CAAS ==> true
+INFO  2019-09-17 09:57:20,216 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6BAAS ==> true
+INFO  2019-09-17 09:57:20,227 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6AAAS ==> true
+INFO  2019-09-17 09:57:20,237 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um69AAC ==> true
+INFO  2019-09-17 09:57:20,245 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um68AAC ==> true
+INFO  2019-09-17 09:57:20,253 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6HAAS ==> true
+INFO  2019-09-17 09:57:20,262 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6GAAS ==> true
+INFO  2019-09-17 09:57:20,315 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Mountain View",
+  "name": "GenePoint",
+  "id": "0013i000004Um6IAAS",
+  "state": "CA"
+}
+INFO  2019-09-17 09:57:20,317 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Tucson",
+  "name": "University of Arizona",
+  "id": "0013i000004Um6FAAS",
+  "state": "AZ"
+}
+INFO  2019-09-17 09:57:20,318 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Portland",
+  "name": "Express Logistics and Transport",
+  "id": "0013i000004Um6EAAS",
+  "state": "OR"
+}
+INFO  2019-09-17 09:57:20,319 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Chicago",
+  "name": "Grand Hotels & Resorts Ltd",
+  "id": "0013i000004Um6CAAS",
+  "state": "IL"
+}
+INFO  2019-09-17 09:57:20,321 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "66045",
+  "country": "USA",
+  "city": "Lawrence",
+  "name": "Dickenson plc",
+  "id": "0013i000004Um6BAAS",
+  "state": "KS"
+}
+INFO  2019-09-17 09:57:20,348 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "75251",
+  "country": "France",
+  "city": "Paris",
+  "name": "Pyramid Construction Inc.",
+  "id": "0013i000004Um6AAAS",
+  "state": ""
+}
+INFO  2019-09-17 09:57:20,349 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "27215",
+  "country": "USA",
+  "city": "Burlington",
+  "name": "Burlington Textiles Corp of America",
+  "id": "0013i000004Um69AAC",
+  "state": "NC"
+}
+INFO  2019-09-17 09:57:20,350 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Austin",
+  "name": "Edge Communications",
+  "id": "0013i000004Um68AAC",
+  "state": "TX"
+}
+INFO  2019-09-17 09:57:20,352 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Singapore",
+  "name": "United Oil & Gas, Singapore",
+  "id": "0013i000004Um6HAAS",
+  "state": "Singapore"
+}
+INFO  2019-09-17 09:57:20,353 [[MuleRuntime].io.05: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "",
+  "name": "United Oil & Gas, UK",
+  "id": "0013i000004Um6GAAS",
+  "state": "UK"
+}
+INFO  2019-09-17 09:57:27,828 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000073yo4AAA ==> true
+INFO  2019-09-17 09:57:27,839 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000075isFAAQ ==> true
+INFO  2019-09-17 09:57:27,849 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @2a0f8ca] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000075LHGAA2 ==> true
+INFO  2019-09-17 09:57:27,867 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "",
+  "name": "accoungt",
+  "id": "0013i0000073yo4AAA",
+  "state": ""
+}
+INFO  2019-09-17 09:57:27,868 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "U1U2U3",
+  "country": "CA",
+  "city": "Markham",
+  "name": "JohnWang",
+  "id": "0013i0000075isFAAQ",
+  "state": "ON"
+}
+INFO  2019-09-17 09:57:27,869 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @783caf] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "1234567",
+  "country": "US",
+  "city": "NewYork",
+  "name": "JohnWangTry2",
+  "id": "0013i0000075LHGAA2",
+  "state": "00"
+}
+INFO  2019-09-17 10:03:38,026 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6IAAS ==> true
+INFO  2019-09-17 10:03:38,037 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6FAAS ==> true
+INFO  2019-09-17 10:03:38,046 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6EAAS ==> true
+INFO  2019-09-17 10:03:38,055 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6CAAS ==> true
+INFO  2019-09-17 10:03:38,065 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6BAAS ==> true
+INFO  2019-09-17 10:03:38,076 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6AAAS ==> true
+INFO  2019-09-17 10:03:38,086 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um69AAC ==> true
+INFO  2019-09-17 10:03:38,094 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um68AAC ==> true
+INFO  2019-09-17 10:03:38,103 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6HAAS ==> true
+INFO  2019-09-17 10:03:38,112 [[MuleRuntime].io.06: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: Check records existence for id: 0013i000004Um6GAAS ==> true
+INFO  2019-09-17 10:03:38,166 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Mountain View",
+  "name": "GenePoint",
+  "id": "0013i000004Um6IAAS",
+  "state": "CA"
+}
+INFO  2019-09-17 10:03:38,168 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Tucson",
+  "name": "University of Arizona",
+  "id": "0013i000004Um6FAAS",
+  "state": "AZ"
+}
+INFO  2019-09-17 10:03:38,169 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Portland",
+  "name": "Express Logistics and Transport",
+  "id": "0013i000004Um6EAAS",
+  "state": "OR"
+}
+INFO  2019-09-17 10:03:38,170 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Chicago",
+  "name": "Grand Hotels & Resorts Ltd",
+  "id": "0013i000004Um6CAAS",
+  "state": "IL"
+}
+INFO  2019-09-17 10:03:38,171 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "66045",
+  "country": "USA",
+  "city": "Lawrence",
+  "name": "Dickenson plc",
+  "id": "0013i000004Um6BAAS",
+  "state": "KS"
+}
+INFO  2019-09-17 10:03:38,201 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "75251",
+  "country": "France",
+  "city": "Paris",
+  "name": "Pyramid Construction Inc.",
+  "id": "0013i000004Um6AAAS",
+  "state": ""
+}
+INFO  2019-09-17 10:03:38,203 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "27215",
+  "country": "USA",
+  "city": "Burlington",
+  "name": "Burlington Textiles Corp of America",
+  "id": "0013i000004Um69AAC",
+  "state": "NC"
+}
+INFO  2019-09-17 10:03:38,204 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Austin",
+  "name": "Edge Communications",
+  "id": "0013i000004Um68AAC",
+  "state": "TX"
+}
+INFO  2019-09-17 10:03:38,206 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "Singapore",
+  "name": "United Oil & Gas, Singapore",
+  "id": "0013i000004Um6HAAS",
+  "state": "Singapore"
+}
+INFO  2019-09-17 10:03:38,207 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 1900-01-01T12:00:00.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "",
+  "name": "United Oil & Gas, UK",
+  "id": "0013i000004Um6GAAS",
+  "state": "UK"
+}
+INFO  2019-09-17 10:03:45,148 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000073yo4AAA ==> true
+INFO  2019-09-17 10:03:45,158 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000075isFAAQ ==> true
+INFO  2019-09-17 10:03:45,169 [[MuleRuntime].io.04: [account-sync-batch].account-sync-batchFlow.BLOCKING @39d93b86] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: Check records existence for id: 0013i0000075LHGAA2 ==> true
+INFO  2019-09-17 10:03:45,186 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "",
+  "country": "",
+  "city": "",
+  "name": "accoungt",
+  "id": "0013i0000073yo4AAA",
+  "state": ""
+}
+INFO  2019-09-17 10:03:45,187 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "U1U2U3",
+  "country": "CA",
+  "city": "Markham",
+  "name": "JohnWang",
+  "id": "0013i0000075isFAAQ",
+  "state": "ON"
+}
+INFO  2019-09-17 10:03:45,188 [[MuleRuntime].io.08: [account-sync-batch].batch-job-account-sync-batchBatch_Job-work-manager @34ac2050] [event: 2019-08-07T14:01:53.000Z] sfdc.account.sync.record: [UPDATE]Account: {
+  "zip": "1234567",
+  "country": "US",
+  "city": "NewYork",
+  "name": "JohnWangTry2",
+  "id": "0013i0000075LHGAA2",
+  "state": "00"
+}

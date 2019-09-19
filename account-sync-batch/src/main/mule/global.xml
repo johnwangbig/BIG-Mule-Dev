@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+	<global-property doc:name="Global Property" doc:id="69701551-a365-4a19-b88d-e69e8c21c443" name="env" value="local" />
+	<global-property doc:name="Global Property" doc:id="4890dc07-2c5a-4452-ba9d-c69f019c3c6c" name="key" value="1234567890123456" />
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="71fd991f-cde8-492a-bde3-e8df15721657" >
+		<salesforce:cached-basic-connection username="${secure::sfdc.username}" password="${secure::sfdc.password}" securityToken="${secure::sfdc.token}" />
+	</salesforce:sfdc-config>
+	<secure-properties:config name="Secure_Properties" doc:name="Secure Properties Config" doc:id="89d557bf-a128-4aae-a0ac-70e4c92453c5" file="secure-confing.${env}.yaml" key="1234567890123456" />
+	<configuration-properties doc:name="Configuration properties" doc:id="5c9cb21a-a542-4e7c-b97d-9815b57d503f" file="config.${env}.yaml" />
+	<db:config name="Database_Config_mysql" doc:name="Database Config" doc:id="a60a598f-56af-4f94-9432-177c68ef4d38" >
+		<db:my-sql-connection host="${secure::db.host}" port="${secure::db.port}" user="${secure::db.username}" password="${secure::db.password}" database="${secure::db.database}" >
+			<db:connection-properties >
+				<db:connection-property key="serverTimezone" value="UTC" />
+			</db:connection-properties>
+		</db:my-sql-connection>
+	</db:config>
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="7665d7b0-60ab-4aea-b2af-3a17039a3473" />
+</mule>

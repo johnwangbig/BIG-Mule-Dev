@@ -1,0 +1,62 @@
+#%RAML 1.0
+title: SalesforceAccountAPI
+version: v1
+
+mediaType: application/json
+
+
+documentation:
+  - !include documentations/headline.raml
+
+traits:
+  pageable:   !include traits/pageable.raml
+  querryable: !include traits/queryable.raml
+
+types:
+  AccountType:       !include dataTypes/account.raml
+  AccountUpdateType: !include dataTypes/accountCreate.raml
+  AccountPatchType:  !include dataTypes/accountPatch.raml
+  ClientErrorType:   !include dataTypes/clientError.raml
+  ServerErrorType:   !include dataTypes/serverError.raml
+
+resourceTypes:
+  AccountCollectionType: !include resourceTypes/collection.raml
+  AccountItemType:       !include resourceTypes/item.raml
+
+securitySchemes:
+  basicAuth:
+    description: Enforce username/password on aPI call
+    type: Basic Authentication
+
+securedBy: 
+- basicAuth
+
+/accounts:
+  type:
+    AccountCollectionType: 
+      getCollectionExample: !include examples/getAccountsExample.raml
+      postRequestExample:   !include examples/accountPostRequestExample.raml
+      postRequestType:      AccountUpdateType
+      clientErrorType:      ClientErrorType
+      serverErrorType:      ServerErrorType
+  post:
+  get:
+    is: 
+    - querryable
+    - pageable
+  /{accountID}:
+    type:
+      AccountItemType: 
+        getItemExample:      !include examples/getAccountExample.raml
+        patchRequestExample: !include examples/accountPatchRequestExample.raml
+        putRequestExample:   !include examples/accountPostRequestExample.raml
+        clientErrorType:     ClientErrorType
+        serverErrorType:     ServerErrorType
+    uriParameters:
+      accountID:
+        type:    string
+        pattern: ^\w{18}$
+    get:
+    patch:
+    delete:
+     

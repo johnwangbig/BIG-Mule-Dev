@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="account_response_json" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="account_create_request_json" format="json">
+      <types:shape format="weave" example="examples/account-postRequest.json"><![CDATA[%dw 2.0
+
+type account_create_request_json = {|
+  name: String, 
+  country: String, 
+  postalcode: String, 
+  state: String, 
+  city: String
+|} {"example": "{\"name\":\"JohnCreate\",\"country\":\"CA\",\"postalcode\":\"L1L1L1\",\"state\":\"ON\",\"city\":\"Toronto\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#9e198a8e-9657-4207-a648-236353a115c0">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="account_create_request_json"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

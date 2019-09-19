@@ -1,0 +1,183 @@
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="9dd37a75-691a-4d63-9e90-db2bc3e1234b" >
+		<salesforce:cached-basic-connection username="${secure::sfdc.username}" password="${secure::sfdc.password}" securityToken="${secure::sfdc.token}" />
+	</salesforce:sfdc-config>
+	<flow name="searchAccount" doc:id="a86629a0-2f28-43f1-b28d-2fffaebf94b5" >
+		<logger level="INFO" doc:name="log acctID" doc:id="18e60fdd-5c66-425d-bcef-f22f438fbc3e" message="#['[SearchAccountID]:' ++ vars.accountID]" category="${log.category.transaction}" />
+		<set-variable value="#['SALESFORCE::QUERRY']" doc:name="set OP code" doc:id="40e35cb6-ae40-436d-b48f-435c46916777" variableName="sfdcOP" />
+		<salesforce:query-single doc:name="Query single" doc:id="e2c038d2-7ef9-4fad-88c3-876974a34bcc" config-ref="Salesforce_Config">
+			<error-mapping sourceType="SALESFORCE:INVALID_REQUEST_DATA" targetType="APP:OP_DATA_ERROR" />
+			<error-mapping sourceType="SALESFORCE:UNKNOWN" targetType="APP:OP_DATA_ERROR" />
+			<salesforce:salesforce-query >SELECT Name,Id, BillingCountry, BillingPostalCode, BillingCity, BillingState, CreatedDate, LastModifiedDate
+FROM Account 
+WHERE Id = ':id'</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output application/java
+---
+{
+	"id" : vars.accountID
+}]]]></salesforce:parameters>
+		</salesforce:query-single>
+		<validation:is-not-null doc:name="Is not null" doc:id="5bf6bfa7-4f7a-4eee-adc7-c0239ad0e84e" value="#[payload.Id]">
+			<error-mapping sourceType="VALIDATION:NULL" targetType="APP:OP_DATA_ERROR" />
+		</validation:is-not-null>
+		<ee:transform doc:name="Transform Message" doc:id="c9e9e91b-13d1-4700-9ee4-dfaf39e7ecd4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"id": payload.Id,
+	"name": payload.Name,
+	"country": payload.BillingCountry,
+	"postalcode": payload.BillingPostalCode,
+	"state": payload.BillingState,
+	"city": payload.BillingCity
+	//"CreatedDate": payload.CreatedDate,
+	//"LastModifiedDate": payload.LastModifiedDate
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="searchAccounts" doc:id="8b447667-7462-432d-9f81-fe636691aced">
+		<logger level="INFO" doc:name="Log search condition" doc:id="ac07e7d6-72fd-420f-b9a0-263de378281a" message="#['[SearchAccount]:' ++ attributes.queryParams['name']]" category="${log.category.transaction}"/>
+		<set-variable value="#['SALESFORCE::QUERRY']" doc:name="set OP code" doc:id="6def0220-a856-4db6-a0d0-80e7378ed869" variableName="sfdcOP" />
+		<salesforce:query doc:name="Query" doc:id="3d18816f-c797-4d08-b41c-fd48453196cf" config-ref="Salesforce_Config" target="accounts">
+			<error-mapping sourceType="SALESFORCE:UNKNOWN" targetType="APP:OP_DATA_ERROR" />
+			<error-mapping sourceType="SALESFORCE:INVALID_REQUEST_DATA" targetType="APP:OP_DATA_ERROR" />
+			<salesforce:salesforce-query>SELECT Name,Id, BillingCountry, BillingPostalCode, BillingCity, BillingState, CreatedDate, LastModifiedDate
+FROM Account 
+WHERE Name LIKE  ':name'</salesforce:salesforce-query>
+			<salesforce:parameters><![CDATA[#[output application/java
+---
+{
+	"name" : attributes.queryParams.'name' ++ '%'
+}]]]></salesforce:parameters>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="eee90e88-b167-4088-a811-12b24fdadeca">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+vars.accounts map {
+	"id": $.Id,
+	"name": $.Name,
+	"country": $.BillingCountry,
+	"postalcode": $.BillingPostalCode,
+	"state": $.BillingState,
+	"city": $.BillingCity
+	//"CreatedDate": $.CreatedDate,
+	//"LastModifiedDate": $.LastModifiedDate
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="deleteAccount" doc:id="4a8e1225-38e1-4973-83d9-4cf8ce2d42c3" >
+		<logger level="INFO" doc:name="log accountID" doc:id="19b7d5ac-5633-4da8-b6d2-a2a5d314f5d5" message="#['[DeleteAccount]:' ++ vars.accountID]" category="${log.category.transaction}" />
+		<set-variable value="#['SALESFORCE::DELETE']" doc:name="set OP code" doc:id="47be7663-0be8-434f-bd5e-048c162524c8" variableName="sfdcOP"/>
+		<salesforce:delete doc:name="deleteAccount" doc:id="dc613c23-4e58-4b1f-b9c7-a02763091448" config-ref="Salesforce_Config" target="result" targetValue="#[payload[0]]">
+			<error-mapping sourceType="SALESFORCE:UNKNOWN" targetType="APP:OP_DATA_ERROR" />
+			<salesforce:delete-ids ><![CDATA[#[[vars.accountID]]]]></salesforce:delete-ids>
+		</salesforce:delete>
+		<flow-ref doc:name="checkSalesForceReponse" doc:id="78f71df3-58d9-4c69-a266-04e529601dc7" name="checkSalesForceReponse" />
+	</flow>
+	<flow name="updateAccount" doc:id="bc394b08-6bcb-463e-a55b-29905392d712" >
+		<logger level="INFO" doc:name="log accountID" doc:id="ce0e4046-6234-4563-ab12-514efad9760e" message="#['[UpdateAccount]:' ++ vars.accountID]" category="${log.category.transaction}" />
+		<logger level="INFO" doc:name="Log Request Body" doc:id="3b08a386-edcb-43fb-9433-a5121be5ca7b" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="495243eb-2a41-4654-9a6d-e5e497f31d42" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{   Id: vars.accountID,
+	(Name: payload.name)if payload.name?,
+	(BillingCity: payload.city) if payload.city?, 
+	(BillingState: payload.state) if payload.state?,
+	(BillingPostalCode: payload.postalcode) if payload.postalcode?,
+	(BillingCountry: payload.country) if payload.country?
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="sfdcOP" ><![CDATA[%dw 2.0
+output application/java
+---
+"SALESFORCE::UPDATE"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<salesforce:update-single type="Account" doc:name="updateAccount" doc:id="88c874e7-9114-4f71-bcc7-06844765ae46" config-ref="Salesforce_Config" target="result">
+			<error-mapping sourceType="SALESFORCE:UNKNOWN" targetType="APP:OP_DATA_ERROR" />
+			<error-mapping sourceType="SALESFORCE:INVALID_REQUEST_DATA" targetType="APP:OP_DATA_ERROR" />
+		</salesforce:update-single>
+		<flow-ref doc:name="checkSalesForceReponse" doc:id="b7db2cbc-137f-44b3-adb1-352f97584ab9" name="checkSalesForceReponse"/>
+	</flow>
+	<flow name="checkSalesForceReponse" doc:id="443e53b1-ba83-41c9-9bee-690f51d26480" >
+		<choice doc:name="SalesforceSucceeded?" doc:id="f70025f6-9422-4325-ba9b-000a43ba10d9" >
+			<when expression="#[vars.result.success]">
+				<set-variable value="204" doc:name="204" doc:id="889c0b4c-084f-4bd8-8030-723408215477" variableName="var.httpStatus" />
+				<set-payload value="#[null]" doc:name="clear Payload" doc:id="e18cc024-f326-4a34-b1c0-6a3650690727" />
+			</when>
+			<otherwise >
+				<raise-error doc:name="Raise error" doc:id="e91194b0-a03a-4d72-a0dc-29c3e4314540" type="APP:OP_DATA_ERROR"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="createAccount" doc:id="a89b1b69-1d5f-4694-a0da-fead4acbbb2e" >
+		<logger level="INFO" doc:name="log Input" doc:id="ae538540-b1cd-442e-b827-e5a5ca3436a6" message="#[payload]" category="${log.category.transaction}" />
+		<ee:transform doc:name="Transform Message" doc:id="9e198a8e-9657-4207-a648-236353a115c0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+[{
+	Name: payload.name,
+	BillingCity: payload.city,
+	BillingState: payload.state,
+	BillingPostalCode: payload.postalcode,
+	BillingCountry: payload.country
+}]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:create doc:name="Create" doc:id="94855f2b-09ba-40f6-921b-945df596f4db" config-ref="Salesforce_Config" type="Account" target="result" targetValue="#[payload[0]]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7467de32-8fa6-4ee3-936c-2fa1ee97dd42" message="#[output application/json --- vars.result]" category="${log.category.transaction}"/>
+		<validation:is-true doc:name="succeed?" doc:id="ef409b6a-337b-4b52-8571-30efe3f15e61" expression="#[vars.result.success]" message="Salesforce creation failed"/>
+		<ee:transform doc:name="setLocationHeader" doc:id="461c6b01-739d-47bb-be8e-724f7c68cc6b" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="outboundHeaders" ><![CDATA[%dw 2.0
+output application/json
+
+---
+{
+	Location: "accounts/" ++ (vars.result.Id  default "")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value="201" doc:name="setHttpStatus 201" doc:id="f5d4140c-dfc9-482f-a806-2b6aca387817" variableName="httpStatus"/>
+		<set-payload value="#[null]" doc:name="clearPayload" doc:id="cadefd20-e756-4ada-9384-724ecc2cf2b9" />
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="14df962d-66be-4b96-960b-04405276d399" >
+				<set-variable value="400" doc:name="400" doc:id="7bdee77a-a969-4d4f-b1aa-12838a6e077d" variableName="httpStatus" />
+				<ee:transform doc:name="Transform Message" doc:id="44faaa29-ee1a-4fb3-809f-4eea450f765a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"code":"SALESFPRCE::CREATION",
+	"subcode": vars.result.errors[0].statusCode,
+	"message":  if (Mule::p('error.details.enabled') ~= true) vars.result.errors[0]
+	   			else "Please Check Salesforce log"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+</mule>

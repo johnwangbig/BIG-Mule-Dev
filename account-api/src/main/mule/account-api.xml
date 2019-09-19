@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:spring="http://www.mulesoft.org/schema/mule/spring" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/spring http://www.mulesoft.org/schema/mule/spring/current/mule-spring.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+    	<http:listener-config name="HTTPS_Listener_config" doc:name="HTTPS Listener config" doc:id="36adb580-7746-4ba1-9455-9b583e0d91b8">
+		<http:listener-connection host="0.0.0.0" port="${secure::https.port}" protocol="HTTPS">
+			<tls:context >
+				<tls:key-store type="jks" path="${secure::https.tls.keystore}" alias="${secure::https.tls.keyalias}" keyPassword="${secure::https.tls.keypass}" password="${secure::https.tls.storepass}" />
+			</tls:context>
+		</http:listener-connection>
+	</http:listener-config>
+	<global-property doc:name="env" doc:id="7f16adf1-4ba4-45f9-889f-1346c982c191" name="env" value="local" />
+    <global-property doc:name="key" doc:id="7c8f09e1-64b6-4965-bfa2-91136e6a21a8" name="key" value="1234567890123456" />
+	<configuration-properties doc:name="Configuration properties" doc:id="8dd288ed-d179-4f16-a29a-350a360b3f07" file="global-config.${env}.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="8df4d8c2-1bc9-46e8-be95-eedc6c07d19d" file="secure-config.${env}.yaml" key="${key}" />
+	<spring:config name="Spring_Config" doc:name="Spring Config" doc:id="d947fecb-1196-45fb-a3c0-102799956415" files="security-beans.xml" />
+    <spring:security-manager doc:name="Spring Security manager" doc:id="3397fbcf-44b3-4be5-a9d2-886e0cb6c0b7" >
+		<spring:delegate-security-provider name="defaultSecurityProvider" delegate-ref="authenticationManager" />
+	</spring:security-manager>
+	
+    <apikit:config name="account-api-config" api="account-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	
+	<sub-flow name="processRequest" doc:id="0a3378ae-7283-4e26-8f1a-b4da50526584" >
+		<tracking:transaction doc:name="Set Transaction Id" doc:id="2f984c4c-3e13-4a35-9b55-b448802cc4b9" id="#[correlationId]" />
+		<logger level="INFO" doc:name="Log Request" doc:id="91fa52f3-50fa-4f35-9f21-14b4cabd6b89" message="#['[REQUEST]txid=' ++ correlationId ++ &quot;, method=&quot; ++ attributes.method ++ &quot; uri=&quot; ++ attributes.rawRequestUri]" category="${log.category.transaction}" />
+		<tracking:custom-event doc:name="CBE " doc:id="f742212a-095b-4346-abf3-a9327a63362d" event-name="AccountAPIRequest">
+            <tracking:meta-data key="txid" value="#[correlationId]" />
+            <tracking:meta-data key="action" value="#[attributes.method]" />
+            <tracking:meta-data key="uri" value="#[attributes.requestUri]" />
+        </tracking:custom-event>
+		<http:basic-security-filter doc:name="Enforce BA" doc:id="1751b08d-00d9-463b-a0be-6516b12c9d79" realm="BIG" />
+		<logger level="INFO" doc:name="auditing" doc:id="b22bb0a9-026c-4c65-99c5-688192004c09" category="${log.category.audit}" message="#['[ACCESS]' ++ authentication.principal.Username ++ ', txid=' ++ correlationId ++ &quot;, method=&quot; ++ attributes.method ++ &quot;, uri=&quot; ++ attributes.rawRequestUri]" />
+		<spring:authorization-filter doc:name="Authorization filter" doc:id="31edecc8-f1f0-478a-9618-53e34ceeebaf" requiredAuthorities="ROLE_ADMIN" />
+	</sub-flow>
+	<sub-flow name="processFinalResult" doc:id="c548e014-661b-4c19-b9f4-6f491ea7819f" >
+		<tracking:custom-event doc:name="Response CBE" doc:id="63c58a11-ee5f-4f71-9d50-1c56af458ad1" event-name="AccountAPIResponse">
+			<tracking:meta-data key="txid" value="#[correlationId]" />
+			<tracking:meta-data key="action" value="#[attributes.method]" />
+            <tracking:meta-data key="uri" value="#[attributes.requestUri]" />
+            <tracking:meta-data key="httpStatusCode" value="#[vars.httpStatus]" />
+		</tracking:custom-event>
+		<logger level="INFO" doc:name="Log Response" doc:id="5fa1f081-2249-4993-8ea8-f6ad28784245" message="#['[RESPONSE]txid=' ++ correlationId as String ++ &quot;, httpStatus=&quot; ++ vars.httpStatus as String]" category="${log.category.transaction}" />
+	</sub-flow>
+	<flow name="account-api-main">
+        <http:listener config-ref="HTTPS_Listener_config" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+		<flow-ref doc:name="Flow Reference" doc:id="e3cff27b-ae49-4858-8627-c93cbf4bcd82" name="processRequest" />
+		<apikit:router config-ref="account-api-config" />
+		<flow-ref doc:name="Flow Reference" doc:id="eb48f8d9-121f-4ac4-b016-a3c49c5657be" name="processFinalResult" />
+		<error-handler>
+            <on-error-propagate type="APIKIT:BAD_REQUEST">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="74074897-9af7-4f95-9f0d-3b43bc1a85fd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "CLI-1000",
+    subcode: "INVALID_INPUT_DATA",
+    message: "INPUT-DATA::INVALID-VERIFIED-BYAPIKIT"  
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="7f11c8f0-5ba5-4c16-b0ae-7a6dc8ec4de2" name="processFinalResult"/>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="4b7bbb44-437e-4a4e-b20e-34c5a503d3ae">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "SVR-1000",
+    subcode: "IMPL-1000",
+    message: "Resource not found"
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="f65a17a6-8a2a-4e14-8da1-7d05647bb684" name="processFinalResult"/>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED" enableNotifications="true" logException="true">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="0228b39e-2f16-441a-9331-c9b0173082fd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "CLI-1000",
+    subcode: "INVALID_INPUT_DATA",
+    message: "Method not allowed"  
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="475483aa-e6be-448f-88a6-45b8664f0f47" name="processFinalResult"/>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_ACCEPTABLE" enableNotifications="true" logException="true">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="4fd505d5-2825-4e9e-b003-28230bd24fd5">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "CLI-1000",
+    subcode: "INVALID_INPUT_DATA",
+    message: "Invalid Media Type"  
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="ba9c21f1-bb4f-4652-b167-e8f062148680" name="processFinalResult"/>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="f4e335a3-4406-4def-a262-70b9753f0283">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "CLI-1000",
+    subcode: "INVALID_INPUT_DATA",
+    message: "Unsupported media type" 
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="53783a31-ec4d-4c01-a36b-54fb7b5d2889" name="processFinalResult"/>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="0f2aa74f-1acb-41fa-bf40-be302fba1c4c">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Not Implemented"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="0f86d7e6-c3da-4a24-8371-53e43239d6c1" name="processFinalResult"/>
+            </on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="cc615dc8-a0f5-475e-a3d8-3cd877b5fea2" type='HTTP:BASIC_AUTHENTICATION'>
+				<ee:transform doc:name="Transform Message" doc:id="cbb8f8b4-f050-4099-beab-904f7f3082d3" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "CLIENT-0001",
+	subCode: "AUTHENTICATION_ERROR",
+	"message": "invalid username/password"
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[401]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="289e5c27-7c9c-4186-acc8-f37a29985e85" name="processFinalResult"/>
+			</on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c897db26-5ee5-4854-90b5-9b5612bd1a51" type="APP:OP_DATA_ERROR">
+				<ee:transform doc:name="Transform Message" doc:id="5e4a6525-3a98-4678-a9ff-bb4e4b5935be" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"code":    vars.sfdcOP,
+	"subcode": "INVALID_INPUT",
+	"message": "ResourceNotFound::Verified By API implementation"
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="3ebdac4e-cc2e-4778-ac64-151188375a15" name="processFinalResult"/>
+			</on-error-propagate>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="88e833ea-3581-4af9-b689-dee77fc7a253" type="ANY">
+				<ee:transform doc:name="Transform Message" doc:id="5b389626-6331-40dc-80ad-0ec333ce1f42">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code: "SERVER-0001",
+	subCode: "SERVER_ERROR",
+	"message": "SERVER ERROR"
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="processFinalResult" doc:id="7105fab3-9578-4f14-835c-4fbc2a37eceb" name="processFinalResult"/>
+			</on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="account-api-console">
+        <http:listener config-ref="HTTPS_Listener_config" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="account-api-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="0fc0751f-c1c3-4420-a72e-93ea383dfb79">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="delete:\accounts\(accountID):account-api-config">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="a7ff66a6-b48e-4f22-a5a2-3718382e9946">
+            <ee:variables>
+                <ee:set-variable variableName="accountID"><![CDATA[attributes.uriParams.'accountID']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="updateAccount" doc:id="a5142c50-c81a-4d8e-ab30-252b3759a89e" name="deleteAccount"/>
+    </flow>
+    <flow name="patch:\accounts\(accountID):application\json:account-api-config">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="b8227b1b-5d47-457d-bfa8-e65491e12134">
+            <ee:variables>
+                <ee:set-variable variableName="accountID"><![CDATA[attributes.uriParams.'accountID']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="updateAccount" doc:id="92576b19-c0b9-4cda-a301-f84ad00943c4" name="updateAccount"/>
+    </flow>
+    <flow name="get:\accounts:account-api-config">
+		<flow-ref doc:name="searchAccounts" doc:id="f69870b9-de01-4450-9027-e08c56179659" name="searchAccounts" />
+    </flow>
+    <flow name="get:\accounts\(accountID):account-api-config">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="c9513c10-2c1f-4498-9572-e2c5954257a2" doc:name="set accountId">
+            <ee:variables>
+                <ee:set-variable variableName="accountID"><![CDATA[attributes.uriParams.'accountID']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="68eea0cf-b233-4ab6-8e9f-202dc75920e7" name="searchAccount"/>
+    </flow>
+    <flow name="post:\accounts:application\json:account-api-config">
+		<flow-ref doc:name="createAccount" doc:id="da297b74-53e1-4836-9e0e-811eff930bb7" name="createAccount"/>
+    </flow>
+</mule>

@@ -1,0 +1,11 @@
+https:
+  port: "8082"
+  tls:
+    keystore:   "tls/server.jks"
+    storepass:  "![DJqeCF2q+gwuHPxNw6+apA==]"
+    keyalias:   "![LvSdnLiOrZnzDX80YrjSww==]"
+    keypass:    "![DJqeCF2q+gwuHPxNw6+apA==]"
+sfdc:
+  username: "![FVW0eZj0l/qEbeHspzGku8hH0qNkf6CKH9qqCQJPZ2E=]"
+  password: "![ucCeu3vRhU7dfl2mGV8h8Q==]"
+  token:    "![MYq1vVn5IQfAMtLZJutee/bfzgrzyGtzG1ztezU5jL4=]"

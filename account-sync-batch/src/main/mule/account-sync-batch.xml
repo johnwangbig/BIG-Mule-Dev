@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd 
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5ec7bd75-191b-492f-a580-9be71dcf2dd2" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<vm:config name="VM_Config" doc:name="VM Config" doc:id="a546d240-c04d-465c-b4dc-615cfc4c649e" sendCorrelationId="ALWAYS" >
+		<vm:connection />
+		<vm:queues >
+			<vm:queue queueName="AccountSync" />
+		</vm:queues>
+	</vm:config>
+	<file:config name="error_File_Config" doc:name="File Config" doc:id="04907c08-1432-454a-b7d8-88299ad39f29" >
+		<file:connection workingDir="${file.error.dir}" />
+	</file:config>
+	<file:config name="report_File_Config" doc:name="File Config" doc:id="23ad1050-370d-4998-b8bb-7c68de9a0381" >
+		<file:connection workingDir="${file.report.dir}" />
+	</file:config>
+	<flow name="account-sync-ControlFlow" doc:id="2f692841-1452-4a1b-b084-f62717e08599" >
+		<scheduler doc:name="Scheduler" doc:id="24cfa835-5b9b-489b-8554-7316b5eb9eb5" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="${poller.interval}"/>
+			</scheduling-strategy>
+		</scheduler>
+		<os:retrieve doc:name="last sync time" doc:id="39d8ecca-040a-4716-8de5-42bc1f60c708" key="lastSyncTS" objectStore="Object_store" target="lastSyncTS" targetValue="#[payload as String]">
+			<os:default-value ><![CDATA[#["1900-01-01T12:00:00.000Z"]]]></os:default-value>
+		</os:retrieve>
+		<tracking:custom-event doc:name="SyncStart" doc:id="6441c210-8caf-4a97-bc51-4c163f78cac3" event-name="AccountsSyncSTART">
+			<tracking:meta-data key="LastSyncWatermark" value="vars.lastSyncTS" />
+		</tracking:custom-event>
+		<logger level="INFO" doc:name="last sync time" doc:id="e3f971c2-85da-482d-be36-d32ec0b99c0a" message="[SyncStart]lastSyncTS=#[vars.lastSyncTS]" category="${log.category.batch}"/>
+		<salesforce:query doc:name="Query" doc:id="8999e8dc-9a8f-4c31-ab94-2e7e2796aebe" config-ref="Salesforce_Config" target="accounts">
+			<salesforce:salesforce-query>SELECT Name,Id, BillingCountry, BillingPostalCode, BillingCity, BillingState, CreatedDate, LastModifiedDate
+FROM Account  
+WHERE LastModifiedDate &gt; :lastSyncTS
+ORDER BY LastModifiedDate
+LIMIT :limit
+</salesforce:salesforce-query>
+			<salesforce:parameters><![CDATA[#[output application/java
+---
+{
+	"limit" : Mule::p('batch.size'),
+	"lastSyncTS" : vars.lastSyncTS
+}]]]></salesforce:parameters>
+		</salesforce:query>
+		<logger level="INFO" doc:name="AccountsFound" doc:id="cc4d3276-b230-4098-bdfc-1a4914bf8ffc" message="[SalesForce]Account Found: #[vars.accounts.*Id]" category="${log.category.batch}"/>
+		<choice doc:name="Choice" doc:id="9514ed71-f693-4b1d-a18a-3831305bcf2b" >
+			<when expression="sizeOf(vars.accounts) == 0">
+				<os:store doc:name="set now()" doc:id="176e856e-3c65-4182-9223-a8ee37b054ad" key="lastSyncTS" objectStore="Object_store">
+					<os:value><![CDATA[#[now() as String {format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}]]]></os:value>
+				</os:store>
+			</when>
+			<otherwise>
+				<vm:publish queueName="AccountSync" doc:name="Publish" doc:id="7f5a9cd2-5ff2-4770-a070-545d4ba10159" config-ref="VM_Config" sendCorrelationId="ALWAYS" correlationId="#[vars.lastSyncTS]">
+					<vm:content ><![CDATA[#[output application/json 
+---
+{
+	"accounts": vars.accounts,
+    "lastSyncTS": vars.lastSyncTS
+}]]]></vm:content>
+				</vm:publish>
+				<os:store doc:name="max ModifiedDate" doc:id="d962da4a-7c29-490c-bbec-84b2bbbfda35" key="lastSyncTS" objectStore="Object_store">
+				 	<os:value><![CDATA[#[output application/json --- max(vars.accounts.LastModifiedDate)]]]></os:value>
+				</os:store>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Sync End" doc:id="86c1fb6e-3d0d-4685-b428-add72f95eff8" message="[SyncFinish]lastSyncTS=#[vars.lastSyncTS]" category="${log.category.batch}" />
+		<tracking:custom-event doc:name="EndOfSync" doc:id="72512bd2-1242-4d88-bae1-d1584ff605cc" event-name="AccountsSyncFINISHED">
+			<tracking:meta-data key="LastSyncWatermark" value="vars.lastSyncTS" />
+		</tracking:custom-event>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2ea210aa-935f-45c0-aa44-7be8e8fa994e">
+				<file:write doc:name="Write" doc:id="26f07bb6-652b-4de4-9002-a4f562d45cbc" config-ref="error_File_Config" path="${file.error.name}" mode="APPEND">
+					<file:content ><![CDATA[#["FAILED SYNC FORM LAST SYNC:" ++ (vars.lastSyncTS default "")]]]></file:content>
+			</file:write>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="account-sync-batchFlow" doc:id="edbbdb21-ac58-4598-8d97-84b996157027" >
+		<vm:listener queueName="AccountSync" doc:name="Listener" doc:id="21dba96d-6045-4ead-9216-2fad5198f149" config-ref="VM_Config"/>
+		<ee:transform doc:name="To DB records" doc:id="e269d5e5-54a5-491d-9ed8-5c50ec997f38" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+fun remap(in) = 
+  if(in == null) ""
+  else in
+
+---
+payload.accounts map (account, idx) -> {
+	id: account.Id default "",
+	name: remap(account.Name),
+	country: remap(account.BillingCountry),
+	zip: remap(account.BillingPostalCode),
+	state: remap(account.BillingState),
+	city: remap(account.BillingCity)
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="lastSyncTS" ><![CDATA[%dw 2.0
+output application/java
+---
+payload.lastSyncTS]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<batch:job jobName="account-sync-batchBatch_Job" doc:id="730b3446-5502-48f6-9cd2-1a89e033f033" maxFailedRecords="-1">
+			<batch:process-records >
+				<batch:step name="checkAccountInDB" doc:id="ef8caff0-1dd5-43fa-8358-043b4c3423fd" >
+					<db:select doc:name="Select" doc:id="f7c0bc5a-775c-429e-8520-a42689747c3f" config-ref="Database_Config_mysql" target="accountExists" targetValue="#[(sizeOf(payload as Array) &gt; 0)]">
+						<db:sql >SELECT NAME
+FROM ACCOUNTS
+WHERE ID =:ID</db:sql>
+						<db:input-parameters ><![CDATA[#[{"ID": payload.id}]]]></db:input-parameters>
+					</db:select>
+					<logger level="INFO" doc:name="Logger" doc:id="3fe20949-03b5-44fb-8dc6-eeaaf118530b" message="Check records existence for id: #[payload.id] ==&gt; #[vars.accountExists]" category="${log.category.record}"/>
+				</batch:step>
+				<batch:step name="createAccounts" doc:id="8b047e98-6050-4f57-8980-1d232d1a3dcf" acceptExpression="#[not vars.accountExists]">
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="2a33afc7-5a64-4070-8626-0f9ab82b83eb" size="${batch.aggregator.insert}">
+						<foreach doc:name="For Each" doc:id="31ee2c31-e6cb-4b96-a3f1-5dc8d48eda91" >
+							<logger level="INFO" doc:name="Logger" doc:id="1df1a1c1-a0c1-407d-96ab-18ee787d9721" message="[CREATE]Account: #[output application/json --- payload]" category="${log.category.record}"/>
+						</foreach>
+						<db:bulk-insert doc:name="Bulk insert" doc:id="001f06b4-c8b7-4788-b83f-7b056080ccf6" config-ref="Database_Config_mysql">
+							<db:sql >INSERT INTO ACCOUNTS(ID, NAME, COUNTRY,ZIP, STATE, CITY)
+VALUES(:id,:name,:country,:zip,:state,:city)</db:sql>
+						</db:bulk-insert>
+					</batch:aggregator>
+				</batch:step>
+				<batch:step name="updateAccounts" doc:id="b42da4a0-211a-4887-8442-7529f5c9fa33" acceptExpression="#[vars.accountExists]">
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="f54330b4-e8af-4457-9f5a-f3a207e39fb3" size="${batch.aggregator.update}">
+						<foreach doc:name="For Each" doc:id="6f97ebba-3c1a-4ca0-86cd-44fe68b37595" >
+							<logger level="INFO" doc:name="Logger" doc:id="f7424482-c32f-4516-bf42-8fca4c659756" message="[UPDATE]Account: #[output application/json --- payload]" category="${log.category.record}" />
+						</foreach>
+						<db:bulk-update doc:name="Bulk update" doc:id="6278d942-c737-489f-ab4c-098f7d25ec1b" config-ref="Database_Config_mysql">
+							<db:sql >UPDATE ACCOUNTS 
+SET
+  NAME =    :name,
+  COUNTRY = :country,
+  STATE =   :state,
+  CITY =    : city,
+  ZIP =      :zip
+WHERE ID = :id</db:sql>
+						</db:bulk-update>
+					</batch:aggregator>
+				</batch:step>
+				<batch:step name="Failures-logToFile" doc:id="c8ed66d6-0490-4cc2-8a6e-18688e274493" acceptPolicy="ONLY_FAILURES">
+					<logger level="INFO" doc:name="failure" doc:id="d18f77da-cb3f-4441-b8fb-ea55cfceb12d" category="${log.category.record}" message="payload"/>
+					<foreach doc:name="For Each" doc:id="62d79c7a-3f91-40ce-83b8-20a80e12f64d" collection="#[payload.values()]">
+						<file:write doc:name="Write" doc:id="9ce5f769-3359-4dfa-8c68-eabcc9184b37" path="Mule::p('file.error.name')++ &quot;.&quot; ++ (vars.lastSyncTS default &quot;&quot;)" mode="APPEND" config-ref="error_File_Config">
+						<file:content><![CDATA[#[Batch::getStepExceptions()]]]></file:content>
+					</file:write>
+					</foreach>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<logger level="INFO" doc:name="result" doc:id="0b0f1775-c1dc-41dc-a7f8-3e8c0513ce5b" category="${log.category.batch}" message="BatchResult: #[output application/json --- payload]"/>
+				<file:write doc:name="Write" doc:id="9652b403-9666-4fea-8f15-b1804454da2a" config-ref="report_File_Config" path="#[Mule::p('file.report.name')++ &quot;.&quot; ++ (vars.lastSyncTS default &quot;&quot;)]">
+			<file:content><![CDATA[#[output application/json --- payload]]]></file:content>
+		</file:write>
+			</batch:on-complete>
+		</batch:job>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="b37aea27-54f9-4837-992d-a1de59d8f7c6" >
+				<file:write doc:name="Write" doc:id="216ac9bc-ce46-46d1-8587-284bb0b74d2d" path="${file.error.name}.#[payload.Id]" config-ref="error_File_Config">
+					<file:content ><![CDATA[#[output application/json
+---
+payload.error]]]></file:content>
+				</file:write>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+</mule>

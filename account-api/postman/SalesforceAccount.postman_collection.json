@@ -1,0 +1,1218 @@
+{
+	"info": {
+		"_postman_id": "7d881a4b-3103-4c75-8668-52d7dcdcf2d7",
+		"name": "SalesforceAccount",
+		"description": "For MULE BIG Developer exercise.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "collection-Create-Querry",
+			"item": [
+				{
+					"name": "querry-200",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts?name=John",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "John"
+								}
+							]
+						},
+						"description": "This querry will retuern all accounts name start with John"
+					},
+					"response": [
+						{
+							"name": "querry-200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts?name=John",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "John"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "317"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:38:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"0013i0000075LHGAA2\",\n        \"name\": \"JohnWangTry2\",\n        \"country\": \"US\",\n        \"postalcode\": \"1234567\",\n        \"state\": \"00\",\n        \"city\": \"NewYork\"\n    },\n    {\n        \"id\": \"0013i0000075isFAAQ\",\n        \"name\": \"JohnWang\",\n        \"country\": \"CA\",\n        \"postalcode\": \"U1U2U3\",\n        \"state\": \"ON\",\n        \"city\": \"Markham\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "querry-400-missing-querry-params",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "querry-400-missing-querry-params",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:38:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"CLI-1000\",\n    \"subcode\": \"INVALID_INPUT_DATA\",\n    \"message\": \"INPUT-DATA::INVALID-VERIFIED-BYAPIKIT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create-201-will-ng-next-time",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"JohnWangAccount\",\n  \"country\": \"CA\",\n  \"postalcode\": \"A1B2C3\",\n  \"state\": \"ON\",\n  \"city\": \"Markham\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:8082/api/accounts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create-400-next-time",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"JohnWangAccount\",\n  \"country\": \"CA\",\n  \"postalcode\": \"A1B2C3\",\n  \"state\": \"ON\",\n  \"city\": \"Markham\"\n}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:40:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SALESFPRCE::CREATION\",\n    \"subcode\": \"DUPLICATES_DETECTED\",\n    \"message\": \"Please Check Salesforce log\"\n}"
+						},
+						{
+							"name": "create-201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"JohnWangAccount\",\n  \"country\": \"CA\",\n  \"postalcode\": \"A1B2C3\",\n  \"state\": \"ON\",\n  \"city\": \"Markham\"\n}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "location",
+									"value": "accounts/0013i0000076voJAAQ"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/java; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:40:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "create-400-invalid-country",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"JohnWang\",\n  \"country\": \"XX\",\n  \"postalcode\": \"U1U2U3\",\n  \"state\": \"ON\",\n  \"city\": \"Kichther\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:8082/api/accounts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create-400-invalid-country",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"JohnWang\",\n  \"country\": \"XX\",\n  \"postalcode\": \"U1U2U3\",\n  \"state\": \"ON\",\n  \"city\": \"Kichther\"\n}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:42:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"CLI-1000\",\n    \"subcode\": \"INVALID_INPUT_DATA\",\n    \"message\": \"INPUT-DATA::INVALID-VERIFIED-BYAPIKIT\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "item-Retrieve-update-delete",
+			"item": [
+				{
+					"name": "retrieve-200",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075LHGAA2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "retrieve-200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075LHGAA2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:43:11 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"0013i0000075LHGAA2\",\n    \"name\": \"JohnWangTry2\",\n    \"country\": \"US\",\n    \"postalcode\": \"1234567\",\n    \"state\": \"00\",\n    \"city\": \"NewYork\"\n}"
+						}
+					]
+				},
+				{
+					"name": "retrieve-400-invalid-id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/00",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"00"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "retrieve-400-invalid-id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/00",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"00"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:43:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"CLI-1000\",\n    \"subcode\": \"INVALID_INPUT_DATA\",\n    \"message\": \"INPUT-DATA::INVALID-VERIFIED-BYAPIKIT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "retrieve-404-accountId-not-found",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075LHGAA1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "retrieve-404-accountId-not-found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075LHGAA1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "129"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:43:51 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SALESFORCE::QUERRY\",\n    \"subcode\": \"INVALID_INPUT\",\n    \"message\": \"ResourceNotFound::Verified By API implementation\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update-204",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"state\":\"88\"}"
+						},
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075LHGAA2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update-204",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"state\":\"88\"}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075LHGAA2"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/java; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:44:08 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update-400-invalid-id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"state\":\"88\"}"
+						},
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/00",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"00"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update-400-invalid-id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"state\":\"88\"}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/00",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"00"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:44:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"CLI-1000\",\n    \"subcode\": \"INVALID_INPUT_DATA\",\n    \"message\": \"INPUT-DATA::INVALID-VERIFIED-BYAPIKIT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update-404-accountId-not-found",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"state\":\"88\"}"
+						},
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075LHGAA1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update-404-accountId-not-found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"state\":\"88\"}"
+								},
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075LHGAA1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075LHGAA1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "129"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:44:53 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SALESFORCE::UPDATE\",\n    \"subcode\": \"INVALID_INPUT\",\n    \"message\": \"ResourceNotFound::Verified By API implementation\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete-204",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075isFAAQ",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075isFAAQ"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete-204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075isFAAQ",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075isFAAQ"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/java; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:46:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete-400-invalid-id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/00",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"00"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete-400-invalid-id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/00",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"00"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:45:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"CLI-1000\",\n    \"subcode\": \"INVALID_INPUT_DATA\",\n    \"message\": \"INPUT-DATA::INVALID-VERIFIED-BYAPIKIT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete-404",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8082/api/accounts/0013i0000075ISZAAq",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"accounts",
+								"0013i0000075ISZAAq"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete-404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8082/api/accounts/0013i0000075ISZAAq",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"accounts",
+										"0013i0000075ISZAAq"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "129"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Sep 2019 15:45:38 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SALESFORCE::DELETE\",\n    \"subcode\": \"INVALID_INPUT\",\n    \"message\": \"ResourceNotFound::Verified By API implementation\"\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8328a9ff-40b6-418c-b5df-c589e21aba8e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f505ae60-1d0a-4ad9-98a2-83122318f13f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	}
+}

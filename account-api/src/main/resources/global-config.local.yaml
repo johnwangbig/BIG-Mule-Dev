@@ -1,0 +1,9 @@
+error:
+  details:
+    enabled: "false"
+log:
+  category:
+    transaction:   "sfdc.account.api"
+    audit:         "sfdc.account.audit"
+  audit:
+    enabled: "true"

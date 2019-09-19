@@ -1,0 +1,345 @@
+INFO  2019-09-13 09:34:58,856 [[MuleRuntime].cpuLight.01: [account-api].account-api-main.CPU_LITE @2ae3689f] [event: 463e3310-d62b-11e9-bff4-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=463e3310-d62b-11e9-bff4-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 09:34:59,103 [[MuleRuntime].cpuLight.03: [account-api].searchAccounts.CPU_LITE @1f719bb2] [event: 463e3310-d62b-11e9-bff4-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 09:34:59,557 [[MuleRuntime].cpuIntensive.15: [account-api].searchAccounts.CPU_INTENSIVE @2fceb696] [event: 463e3310-d62b-11e9-bff4-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=463e3310-d62b-11e9-bff4-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 09:36:46,230 [[MuleRuntime].cpuLight.03: [account-api].account-api-main.CPU_LITE @23de4a5f] [event: 8770df91-d62b-11e9-bff4-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=8770df91-d62b-11e9-bff4-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 09:36:46,550 [[MuleRuntime].cpuIntensive.01: [account-api].account-api-main.CPU_INTENSIVE @1ef5ab4] [event: 8770df91-d62b-11e9-bff4-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=8770df91-d62b-11e9-bff4-a483e71cc8e1, httpStatus=501
+INFO  2019-09-13 09:39:31,559 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @522406a9] [event: e0627f00-d62b-11e9-8abe-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=e0627f00-d62b-11e9-8abe-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 09:40:24,661 [[MuleRuntime].cpuIntensive.15: [account-api].account-api-main.CPU_INTENSIVE @52600246] [event: e0627f00-d62b-11e9-8abe-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=e0627f00-d62b-11e9-8abe-a483e71cc8e1, httpStatus=501
+INFO  2019-09-13 09:45:02,190 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @4f3b45d] [event: a45d3df0-d62c-11e9-92a4-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=a45d3df0-d62c-11e9-92a4-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 09:45:50,354 [[MuleRuntime].cpuIntensive.01: [account-api].account-api-main.CPU_INTENSIVE @3dedf009] [event: a45d3df0-d62c-11e9-92a4-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=a45d3df0-d62c-11e9-92a4-a483e71cc8e1, httpStatus=501
+INFO  2019-09-13 09:47:40,355 [[MuleRuntime].cpuLight.14: [account-api].account-api-main.CPU_LITE @6868d89] [event: 0d549470-d62d-11e9-92a4-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=0d549470-d62d-11e9-92a4-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 09:47:44,404 [[MuleRuntime].cpuLight.13: [account-api].searchAccounts.CPU_LITE @5d6cfd63] [event: 0d549470-d62d-11e9-92a4-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 09:47:45,059 [[MuleRuntime].cpuIntensive.16: [account-api].searchAccounts.CPU_INTENSIVE @74101797] [event: 0d549470-d62d-11e9-92a4-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=0d549470-d62d-11e9-92a4-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 11:12:51,824 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @2c0f6b6e] [event: f2d52b80-d638-11e9-b272-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=f2d52b80-d638-11e9-b272-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-13 11:12:52,026 [[MuleRuntime].cpuLight.13: [account-api].createAccount.CPU_LITE @173808b4] [event: f2d52b80-d638-11e9-b272-a483e71cc8e1] sfdc.account.api: {
+  "name": "JohnWang",
+  "country": "CA",
+  "postalcode": "U1U2U3",
+  "state": "ON",
+  "city": "Markham"
+}
+INFO  2019-09-13 11:12:52,828 [[MuleRuntime].io.05: [account-api].createAccount.BLOCKING @418f55ef] [event: f2d52b80-d638-11e9-b272-a483e71cc8e1] sfdc.account.api: {
+  "success": false,
+  "id": null,
+  "errors": [
+    {
+      "duplicateResult": {
+        "errorMessage": "Use one of these records?",
+        "allowSave": true,
+        "duplicateRuleEntityType": "Account",
+        "duplicateRule": "Standard_Account_Duplicate_Rule",
+        "matchResults": [
+          {
+            "entityType": "Account",
+            "matchEngine": "FuzzyMatchEngine",
+            "rule": "Standard_Account_Match_Rule_v1_0",
+            "size": 1,
+            "success": true,
+            "errors": [
+              
+            ],
+            "matchRecords": [
+              {
+                "matchConfidence": 100.0,
+                "additionalInformation": [
+                  
+                ],
+                "fieldDiffs": [
+                  
+                ],
+                "record": {
+                  "Id": "0013i0000075isFAAQ",
+                  "type": "Account"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "message": "Use one of these records?",
+      "fields": [
+        
+      ],
+      "statusCode": "DUPLICATES_DETECTED"
+    }
+  ]
+}
+INFO  2019-09-13 11:12:52,961 [[MuleRuntime].cpuIntensive.02: [account-api].createAccount.CPU_INTENSIVE @529979ff] [event: f2d52b80-d638-11e9-b272-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=f2d52b80-d638-11e9-b272-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 11:14:32,718 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @399c0183] [event: 2ef2ba10-d639-11e9-820c-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=2ef2ba10-d639-11e9-820c-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-13 11:14:32,935 [[MuleRuntime].cpuLight.13: [account-api].createAccount.CPU_LITE @5f25b46e] [event: 2ef2ba10-d639-11e9-820c-a483e71cc8e1] sfdc.account.api: {
+  "name": "JohnWang",
+  "country": "CA",
+  "postalcode": "U1U2U3",
+  "state": "ON",
+  "city": "Markham"
+}
+INFO  2019-09-13 11:14:33,642 [[MuleRuntime].io.04: [account-api].createAccount.BLOCKING @1cd00152] [event: 2ef2ba10-d639-11e9-820c-a483e71cc8e1] sfdc.account.api: {
+  "success": false,
+  "id": null,
+  "errors": [
+    {
+      "duplicateResult": {
+        "errorMessage": "Use one of these records?",
+        "allowSave": true,
+        "duplicateRuleEntityType": "Account",
+        "duplicateRule": "Standard_Account_Duplicate_Rule",
+        "matchResults": [
+          {
+            "entityType": "Account",
+            "matchEngine": "FuzzyMatchEngine",
+            "rule": "Standard_Account_Match_Rule_v1_0",
+            "size": 1,
+            "success": true,
+            "errors": [
+              
+            ],
+            "matchRecords": [
+              {
+                "matchConfidence": 100.0,
+                "additionalInformation": [
+                  
+                ],
+                "fieldDiffs": [
+                  
+                ],
+                "record": {
+                  "Id": "0013i0000075isFAAQ",
+                  "type": "Account"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "message": "Use one of these records?",
+      "fields": [
+        
+      ],
+      "statusCode": "DUPLICATES_DETECTED"
+    }
+  ]
+}
+INFO  2019-09-13 11:14:33,760 [[MuleRuntime].cpuIntensive.02: [account-api].createAccount.CPU_INTENSIVE @104ccd52] [event: 2ef2ba10-d639-11e9-820c-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=2ef2ba10-d639-11e9-820c-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 16:13:12,972 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: e82775b0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=e82775b0-d662-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:13:13,249 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: e82775b0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:13:13,655 [[MuleRuntime].cpuIntensive.01: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: e82775b0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=e82775b0-d662-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:13:17,162 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: ec542f70-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=ec542f70-d662-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts
+INFO  2019-09-13 16:13:17,214 [[MuleRuntime].cpuIntensive.02: [account-api].account-api-main.CPU_INTENSIVE @6f623117] [event: ec542f70-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=ec542f70-d662-11e9-b8c0-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 16:13:25,852 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: f18253a0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=f18253a0-d662-11e9-b8c0-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-13 16:13:25,871 [[MuleRuntime].cpuLight.04: [account-api].createAccount.CPU_LITE @4f5b8ca5] [event: f18253a0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: {
+  "name": "JohnWang",
+  "country": "CA",
+  "postalcode": "U1U2U3",
+  "state": "ON",
+  "city": "Markham"
+}
+INFO  2019-09-13 16:13:26,566 [[MuleRuntime].io.06: [account-api].createAccount.BLOCKING @630f6f19] [event: f18253a0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: {
+  "success": false,
+  "id": null,
+  "errors": [
+    {
+      "duplicateResult": {
+        "errorMessage": "Use one of these records?",
+        "allowSave": true,
+        "duplicateRuleEntityType": "Account",
+        "duplicateRule": "Standard_Account_Duplicate_Rule",
+        "matchResults": [
+          {
+            "entityType": "Account",
+            "matchEngine": "FuzzyMatchEngine",
+            "rule": "Standard_Account_Match_Rule_v1_0",
+            "size": 1,
+            "success": true,
+            "errors": [
+              
+            ],
+            "matchRecords": [
+              {
+                "matchConfidence": 100.0,
+                "additionalInformation": [
+                  
+                ],
+                "fieldDiffs": [
+                  
+                ],
+                "record": {
+                  "Id": "0013i0000075isFAAQ",
+                  "type": "Account"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "message": "Use one of these records?",
+      "fields": [
+        
+      ],
+      "statusCode": "DUPLICATES_DETECTED"
+    }
+  ]
+}
+INFO  2019-09-13 16:13:26,641 [[MuleRuntime].cpuIntensive.04: [account-api].createAccount.CPU_INTENSIVE @48dec62a] [event: f18253a0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=f18253a0-d662-11e9-b8c0-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 16:13:39,437 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: f99b3bb0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=f99b3bb0-d662-11e9-b8c0-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-13 16:13:39,455 [[MuleRuntime].cpuIntensive.16: [account-api].account-api-main.CPU_INTENSIVE @6f623117] [event: f99b3bb0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=f99b3bb0-d662-11e9-b8c0-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 16:13:49,087 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: ff5b8dc0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=ff5b8dc0-d662-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts/0013i0000075LHGAA2
+INFO  2019-09-13 16:13:49,102 [[MuleRuntime].cpuLight.02: [account-api].searchAccount.CPU_LITE @6574a54] [event: ff5b8dc0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccountID]:0013i0000075LHGAA2
+INFO  2019-09-13 16:13:49,495 [[MuleRuntime].cpuIntensive.06: [account-api].searchAccount.CPU_INTENSIVE @7b680cb4] [event: ff5b8dc0-d662-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=ff5b8dc0-d662-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:13:52,838 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 0197e930-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=0197e930-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts/00
+INFO  2019-09-13 16:13:52,848 [[MuleRuntime].cpuIntensive.07: [account-api].account-api-main.CPU_INTENSIVE @6f623117] [event: 0197e930-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=0197e930-d663-11e9-b8c0-a483e71cc8e1, httpStatus=400
+INFO  2019-09-13 16:13:56,721 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 03e88ff0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=03e88ff0-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts/0013i0000075LHGAA1
+INFO  2019-09-13 16:13:56,727 [[MuleRuntime].cpuLight.04: [account-api].searchAccount.CPU_LITE @6574a54] [event: 03e88ff0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccountID]:0013i0000075LHGAA1
+INFO  2019-09-13 16:13:57,022 [[MuleRuntime].cpuIntensive.09: [account-api].account-api-main.CPU_INTENSIVE @6f623117] [event: 03e88ff0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=03e88ff0-d663-11e9-b8c0-a483e71cc8e1, httpStatus=404
+INFO  2019-09-13 16:14:15,754 [[MuleRuntime].cpuLight.04: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 0f409d70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=0f409d70-d663-11e9-b8c0-a483e71cc8e1, method=PATCH uri=/api/accounts/0013i0000075LHGAA2
+INFO  2019-09-13 16:14:15,771 [[MuleRuntime].cpuLight.02: [account-api].updateAccount.CPU_LITE @620ffb72] [event: 0f409d70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [UpdateAccount]:0013i0000075LHGAA2
+INFO  2019-09-13 16:14:17,284 [[MuleRuntime].cpuLight.02: [account-api].checkSalesForceReponse.CPU_LITE @345a2cf8] [event: 0f409d70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=0f409d70-d663-11e9-b8c0-a483e71cc8e1, httpStatus=204
+INFO  2019-09-13 16:14:18,858 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 111a3f70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=111a3f70-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:14:18,862 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 111a3f70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:14:19,158 [[MuleRuntime].cpuIntensive.12: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 111a3f70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=111a3f70-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:23,353 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 7f121a70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=7f121a70-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:23,373 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 7f121a70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:23,916 [[MuleRuntime].cpuIntensive.13: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 7f121a70-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=7f121a70-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:34,716 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 85d7f5a0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=85d7f5a0-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:34,722 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 85d7f5a0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:35,003 [[MuleRuntime].cpuIntensive.14: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 85d7f5a0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=85d7f5a0-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:36,974 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 873080c0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=873080c0-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:36,980 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 873080c0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:37,360 [[MuleRuntime].cpuIntensive.15: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 873080c0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=873080c0-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:38,194 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 87eaa900-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=87eaa900-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:38,199 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 87eaa900-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:38,504 [[MuleRuntime].cpuIntensive.01: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 87eaa900-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=87eaa900-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:39,125 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 8878df40-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=8878df40-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:39,131 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 8878df40-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:39,488 [[MuleRuntime].cpuIntensive.02: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 8878df40-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=8878df40-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-13 16:17:39,856 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @70e480d1] [event: 88e842e0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=88e842e0-d663-11e9-b8c0-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-13 16:17:39,866 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @43158c89] [event: 88e842e0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-13 16:17:40,152 [[MuleRuntime].cpuIntensive.03: [account-api].searchAccounts.CPU_INTENSIVE @671613a8] [event: 88e842e0-d663-11e9-b8c0-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=88e842e0-d663-11e9-b8c0-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 11:38:28,161 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 30582950-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=30582950-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 11:38:28,378 [[MuleRuntime].cpuLight.13: [account-api].searchAccounts.CPU_LITE @50f894b4] [event: 30582950-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 11:38:28,792 [[MuleRuntime].cpuIntensive.01: [account-api].searchAccounts.CPU_INTENSIVE @7560f17a] [event: 30582950-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=30582950-d961-11e9-9880-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 11:38:59,538 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 44793500-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=44793500-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts
+INFO  2019-09-17 11:38:59,590 [[MuleRuntime].cpuIntensive.02: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 44793500-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=44793500-d961-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:40:27,401 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 78d80970-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=78d80970-d961-11e9-9880-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-17 11:40:27,419 [[MuleRuntime].cpuLight.15: [account-api].createAccount.CPU_LITE @6aa471a2] [event: 78d80970-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: {
+  "name": "JohnWangAccount",
+  "country": "CA",
+  "postalcode": "A1B2C3",
+  "state": "ON",
+  "city": "Markham"
+}
+INFO  2019-09-17 11:40:28,673 [[MuleRuntime].io.05: [account-api].createAccount.BLOCKING @c96096e] [event: 78d80970-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: {
+  "success": true,
+  "id": "0013i0000076voJAAQ",
+  "errors": [
+    
+  ]
+}
+INFO  2019-09-17 11:40:28,700 [[MuleRuntime].cpuIntensive.04: [account-api].createAccount.CPU_INTENSIVE @786fc31a] [event: 78d80970-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=78d80970-d961-11e9-9880-a483e71cc8e1, httpStatus=201
+INFO  2019-09-17 11:40:46,418 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 842da5f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=842da5f0-d961-11e9-9880-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-17 11:40:46,423 [[MuleRuntime].cpuLight.15: [account-api].createAccount.CPU_LITE @6aa471a2] [event: 842da5f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: {
+  "name": "JohnWangAccount",
+  "country": "CA",
+  "postalcode": "A1B2C3",
+  "state": "ON",
+  "city": "Markham"
+}
+INFO  2019-09-17 11:40:46,881 [[MuleRuntime].io.05: [account-api].createAccount.BLOCKING @c96096e] [event: 842da5f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: {
+  "success": false,
+  "id": null,
+  "errors": [
+    {
+      "duplicateResult": {
+        "errorMessage": "Use one of these records?",
+        "allowSave": true,
+        "duplicateRuleEntityType": "Account",
+        "duplicateRule": "Standard_Account_Duplicate_Rule",
+        "matchResults": [
+          {
+            "entityType": "Account",
+            "matchEngine": "FuzzyMatchEngine",
+            "rule": "Standard_Account_Match_Rule_v1_0",
+            "size": 1,
+            "success": true,
+            "errors": [
+              
+            ],
+            "matchRecords": [
+              {
+                "matchConfidence": 100.0,
+                "additionalInformation": [
+                  
+                ],
+                "fieldDiffs": [
+                  
+                ],
+                "record": {
+                  "Id": "0013i0000076voJAAQ",
+                  "type": "Account"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "message": "Use one of these records?",
+      "fields": [
+        
+      ],
+      "statusCode": "DUPLICATES_DETECTED"
+    }
+  ]
+}
+INFO  2019-09-17 11:40:46,929 [[MuleRuntime].cpuIntensive.05: [account-api].createAccount.CPU_INTENSIVE @786fc31a] [event: 842da5f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=842da5f0-d961-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:42:19,918 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: bbe89db0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=bbe89db0-d961-11e9-9880-a483e71cc8e1, method=POST uri=/api/accounts
+INFO  2019-09-17 11:42:19,941 [[MuleRuntime].cpuIntensive.06: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: bbe89db0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=bbe89db0-d961-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:42:58,221 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: d2bd57b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=d2bd57b0-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 11:42:58,227 [[MuleRuntime].cpuLight.15: [account-api].searchAccounts.CPU_LITE @50f894b4] [event: d2bd57b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 11:42:58,747 [[MuleRuntime].cpuIntensive.07: [account-api].searchAccounts.CPU_INTENSIVE @7560f17a] [event: d2bd57b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=d2bd57b0-d961-11e9-9880-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 11:43:10,833 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: da41c7f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=da41c7f0-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts/0013i0000075LHGAA2
+INFO  2019-09-17 11:43:10,848 [[MuleRuntime].cpuLight.13: [account-api].searchAccount.CPU_LITE @7de4c11] [event: da41c7f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [SearchAccountID]:0013i0000075LHGAA2
+INFO  2019-09-17 11:43:11,147 [[MuleRuntime].cpuIntensive.09: [account-api].searchAccount.CPU_INTENSIVE @1f719bb2] [event: da41c7f0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=da41c7f0-d961-11e9-9880-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 11:43:28,802 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: e4f7a200-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=e4f7a200-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts/00
+INFO  2019-09-17 11:43:28,811 [[MuleRuntime].cpuIntensive.10: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: e4f7a200-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=e4f7a200-d961-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:43:50,910 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: f224e4b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=f224e4b0-d961-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts/0013i0000075LHGAA1
+INFO  2019-09-17 11:43:50,916 [[MuleRuntime].cpuLight.15: [account-api].searchAccount.CPU_LITE @7de4c11] [event: f224e4b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [SearchAccountID]:0013i0000075LHGAA1
+INFO  2019-09-17 11:43:51,421 [[MuleRuntime].cpuIntensive.12: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: f224e4b0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=f224e4b0-d961-11e9-9880-a483e71cc8e1, httpStatus=404
+INFO  2019-09-17 11:44:07,854 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: fc3e7ec0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=fc3e7ec0-d961-11e9-9880-a483e71cc8e1, method=PATCH uri=/api/accounts/0013i0000075LHGAA2
+INFO  2019-09-17 11:44:07,866 [[MuleRuntime].cpuLight.13: [account-api].updateAccount.CPU_LITE @230251b2] [event: fc3e7ec0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [UpdateAccount]:0013i0000075LHGAA2
+INFO  2019-09-17 11:44:08,251 [[MuleRuntime].cpuLight.13: [account-api].checkSalesForceReponse.CPU_LITE @3393094] [event: fc3e7ec0-d961-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=fc3e7ec0-d961-11e9-9880-a483e71cc8e1, httpStatus=204
+INFO  2019-09-17 11:44:20,147 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: 03921b00-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=03921b00-d962-11e9-9880-a483e71cc8e1, method=PATCH uri=/api/accounts/00
+INFO  2019-09-17 11:44:20,155 [[MuleRuntime].cpuIntensive.15: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 03921b00-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=03921b00-d962-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:44:52,459 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: 16d4d4a0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=16d4d4a0-d962-11e9-9880-a483e71cc8e1, method=PATCH uri=/api/accounts/0013i0000075LHGAA1
+INFO  2019-09-17 11:44:52,465 [[MuleRuntime].cpuLight.15: [account-api].updateAccount.CPU_LITE @230251b2] [event: 16d4d4a0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [UpdateAccount]:0013i0000075LHGAA1
+INFO  2019-09-17 11:44:53,008 [[MuleRuntime].cpuIntensive.03: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 16d4d4a0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=16d4d4a0-d962-11e9-9880-a483e71cc8e1, httpStatus=404
+INFO  2019-09-17 11:45:16,010 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 24ddf860-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=24ddf860-d962-11e9-9880-a483e71cc8e1, method=DELETE uri=/api/accounts/0013i0000075ISZAA2
+INFO  2019-09-17 11:45:16,040 [[MuleRuntime].cpuLight.13: [account-api].deleteAccount.CPU_LITE @280ee954] [event: 24ddf860-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [DeleteAccount]:0013i0000075ISZAA2
+INFO  2019-09-17 11:45:16,404 [[MuleRuntime].cpuIntensive.16: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 24ddf860-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=24ddf860-d962-11e9-9880-a483e71cc8e1, httpStatus=404
+INFO  2019-09-17 11:45:28,956 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: 2c95ada0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=2c95ada0-d962-11e9-9880-a483e71cc8e1, method=DELETE uri=/api/accounts/00
+INFO  2019-09-17 11:45:28,963 [[MuleRuntime].cpuIntensive.05: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 2c95ada0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=2c95ada0-d962-11e9-9880-a483e71cc8e1, httpStatus=400
+INFO  2019-09-17 11:45:37,636 [[MuleRuntime].cpuLight.13: [account-api].account-api-main.CPU_LITE @548f0401] [event: 31c22420-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=31c22420-d962-11e9-9880-a483e71cc8e1, method=DELETE uri=/api/accounts/0013i0000075ISZAAq
+INFO  2019-09-17 11:45:37,640 [[MuleRuntime].cpuLight.15: [account-api].deleteAccount.CPU_LITE @280ee954] [event: 31c22420-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [DeleteAccount]:0013i0000075ISZAAq
+INFO  2019-09-17 11:45:38,162 [[MuleRuntime].cpuIntensive.07: [account-api].account-api-main.CPU_INTENSIVE @38e0d544] [event: 31c22420-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=31c22420-d962-11e9-9880-a483e71cc8e1, httpStatus=404
+INFO  2019-09-17 11:46:00,738 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 3f873a00-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=3f873a00-d962-11e9-9880-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 11:46:00,743 [[MuleRuntime].cpuLight.15: [account-api].searchAccounts.CPU_LITE @50f894b4] [event: 3f873a00-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 11:46:01,144 [[MuleRuntime].cpuIntensive.08: [account-api].searchAccounts.CPU_INTENSIVE @7560f17a] [event: 3f873a00-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=3f873a00-d962-11e9-9880-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 11:46:14,928 [[MuleRuntime].cpuLight.15: [account-api].account-api-main.CPU_LITE @548f0401] [event: 47fc72e0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=47fc72e0-d962-11e9-9880-a483e71cc8e1, method=DELETE uri=/api/accounts/0013i0000075isFAAQ
+INFO  2019-09-17 11:46:14,933 [[MuleRuntime].cpuLight.13: [account-api].deleteAccount.CPU_LITE @280ee954] [event: 47fc72e0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [DeleteAccount]:0013i0000075isFAAQ
+INFO  2019-09-17 11:46:15,966 [[MuleRuntime].cpuLight.13: [account-api].checkSalesForceReponse.CPU_LITE @3393094] [event: 47fc72e0-d962-11e9-9880-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=47fc72e0-d962-11e9-9880-a483e71cc8e1, httpStatus=204
+INFO  2019-09-17 13:53:48,210 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: 1828edc0-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=1828edc0-d974-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 13:53:48,434 [[MuleRuntime].cpuLight.15: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: 1828edc0-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 13:53:48,999 [[MuleRuntime].cpuIntensive.01: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: 1828edc0-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=1828edc0-d974-11e9-9537-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 13:58:10,116 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: b5ce4a20-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=b5ce4a20-d974-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 13:58:10,123 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: b5ce4a20-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 13:58:10,611 [[MuleRuntime].cpuIntensive.02: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: b5ce4a20-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=b5ce4a20-d974-11e9-9537-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 13:58:48,457 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: cca8a970-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=cca8a970-d974-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 13:58:48,464 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: cca8a970-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 13:58:48,906 [[MuleRuntime].cpuIntensive.03: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: cca8a970-d974-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=cca8a970-d974-11e9-9537-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 14:00:18,799 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: 0281c1d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=0281c1d0-d975-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 14:00:18,815 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: 0281c1d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 14:00:19,380 [[MuleRuntime].cpuIntensive.04: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: 0281c1d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=0281c1d0-d975-11e9-9537-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 14:05:03,072 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: abf25fe0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=abf25fe0-d975-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 14:05:03,078 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: abf25fe0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 14:05:03,390 [[MuleRuntime].cpuIntensive.05: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: abf25fe0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=abf25fe0-d975-11e9-9537-a483e71cc8e1, httpStatus=200
+INFO  2019-09-17 14:05:07,695 [[MuleRuntime].cpuLight.02: [account-api].account-api-main.CPU_LITE @6fbbc9de] [event: aeb3c9d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [REQUEST]txid=aeb3c9d0-d975-11e9-9537-a483e71cc8e1, method=GET uri=/api/accounts?name=John
+INFO  2019-09-17 14:05:07,700 [[MuleRuntime].cpuLight.02: [account-api].searchAccounts.CPU_LITE @542c1b01] [event: aeb3c9d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [SearchAccount]:John
+INFO  2019-09-17 14:05:08,000 [[MuleRuntime].cpuIntensive.16: [account-api].searchAccounts.CPU_INTENSIVE @ed412f0] [event: aeb3c9d0-d975-11e9-9537-a483e71cc8e1] sfdc.account.api: [RESPONSE]txid=aeb3c9d0-d975-11e9-9537-a483e71cc8e1, httpStatus=200

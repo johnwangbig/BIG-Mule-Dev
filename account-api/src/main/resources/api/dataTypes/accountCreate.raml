@@ -1,0 +1,19 @@
+#%RAML 1.0 DataType
+type: object
+minProperties: 1
+properties:
+  name: string
+  country?:   
+    type: string
+    enum:
+    - CA
+    - US
+  postalcode?: string
+  state?: string
+  city?: string
+example:
+  name: John
+  country: CA
+  postalcode: L1L1L1
+  state: ON
+  city: Toronto

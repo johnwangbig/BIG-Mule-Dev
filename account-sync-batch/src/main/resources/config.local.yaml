@@ -1,0 +1,24 @@
+poller:
+  interval: "10000"
+  delay:    "1000"
+batch:
+  size:     "10"
+  aggregator:
+    insert:   "5"
+    update:   "5"
+error:
+  details:
+    enabled: "true"
+log:
+  category:
+    batch:    "sfdc.account.sync.batch"
+    record:   "sfdc.account.sync.record"
+  audit:
+    enabled: "true"
+file:
+  error:
+    dir: "/Users/johnwang/batch/error"
+    name: "error.csv"
+  report:
+    dir: "/Users/johnwang/batch/report"
+    name: "report.txt"

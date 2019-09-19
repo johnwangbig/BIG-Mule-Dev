@@ -1,0 +1,41 @@
+#%RAML 1.0 ResourceType
+description: Provide <<resourcePathName | !singularize | !uppercamelcase>> retrieve and creation
+get?:
+  description: Query <<resourcePathName | !singularize | !uppercamelcase>>
+  displayName: search <<resourcePathName | !singularize | !uppercamelcase>>
+  responses:
+    200:
+      body:
+        application/json:
+          type: <<resourcePathName | !singularize | !uppercamelcase>>Type[]
+          example: <<getCollectionExample>>
+    400:
+      body:
+        application/json:
+          type: <<clientErrorType>>
+    501:
+      body:
+        application/json:
+          type: <<serverErrorType>>
+post?:
+  displayName: create new <<resourcePathName | !singularize | !uppercamelcase>>
+  description: create <<resourcePathName | !singularize | !uppercamelcase>>
+  body:
+    application/json:
+      type: <<postRequestType>>
+      example: <<postRequestExample>>
+  responses:
+    201:
+      headers:
+        Location:
+          required: true
+          example:
+            <<resourcePathName | !singularize>>/1234
+    400:
+      body:
+        application/json:
+          type: <<clientErrorType>>
+    501:
+      body:
+        application/json:
+          type: <<serverErrorType>>

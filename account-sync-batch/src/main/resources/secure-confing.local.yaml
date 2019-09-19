@@ -1,0 +1,10 @@
+db:
+  host: "localhost"
+  port: "3306"
+  username: "![dKgVui4W5X4RAnvCBq+qvg==]"
+  password: "![DJqeCF2q+gwuHPxNw6+apA==]"
+  database: "test"
+sfdc:
+  username: "![FVW0eZj0l/qEbeHspzGku8hH0qNkf6CKH9qqCQJPZ2E=]"
+  password: "![ucCeu3vRhU7dfl2mGV8h8Q==]"
+  token:    "![MYq1vVn5IQfAMtLZJutee/bfzgrzyGtzG1ztezU5jL4=]"
