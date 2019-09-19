@@ -1,8 +1,11 @@
 # This is exercise part 2 - BATCH
 
-- running result log file: under logs/ there are 2  log files customized in log4j2.xml. One file for each batch job instance execution reporting and one for reporting each record processing.
+- running result log file: under logs/ there are 2  log files customized in log4j2.xml.  
+⋅⋅* One file for each batch job instance execution reporting and 
+⋅⋅* One for reporting each record processing.
 
-- configuration files: salsforce and MySQL connection properties uas encrpted. Also, the file name is enviroment specic with PROPERTY_FILE.${env}.yaml. env is default to "local"
+- configuration files: salsforce and MySQL connection properties uas encrpted. Also, the file name is enviroment specic with PROPERTY_FILE.${env}.yaml. 
+env is default to "local"
 
 - Batch job applied aggreagtor steps for DB insert/update. aggregator size defined in properties
 
